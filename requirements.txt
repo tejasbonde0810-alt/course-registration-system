@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 PyMySQL
 Werkzeug
 gunicorn
+python-dotenv
