@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Registration Successful</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            width: 500px;
+            max-width: 90%;
+            padding: 40px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .success-icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #166534;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .details {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .details p {
+            margin-bottom: 12px;
+            color: #334155;
+        }
+
+        .details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="success-icon">
+            ✅
+        </div>
+
+        <h1>
+            Registration Successful!
+        </h1>
+
+        <p class="message">
+            Your certification exam registration
+            has been completed successfully.
+        </p>
+
+        <div class="details">
+
+            <p>
+                <strong>Course:</strong>
+                {{ exam.course.course_name }}
+            </p>
+
+            <p>
+                <strong>Exam Fee:</strong>
+                ₹{{ exam.exam_fee }}
+            </p>
+
+            <p>
+                <strong>Payment:</strong>
+                {{ exam.payment_status }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ exam.registration_status }}
+            </p>
+
+            <p>
+                <strong>Registration Date:</strong>
+                {{ exam.registration_date }}
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('my_courses') }}"
+            class="button"
+        >
+            ← Back to My Courses
+        </a>
+
+    </div>
+
+</body>
+</html>

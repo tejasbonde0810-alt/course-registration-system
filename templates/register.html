@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | Course Registration System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef4ff, #dce8ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            min-height: 570px;
+            display: flex;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(30, 60, 120, 0.18);
+        }
+
+        /* LEFT SIDE */
+
+        .left-section {
+            width: 43%;
+            background: linear-gradient(145deg, #173b8f, #2563c7);
+            color: white;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 28px;
+        }
+
+        .left-section h1 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .left-section p {
+            color: #dbeafe;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            margin: 14px 0;
+            font-size: 14px;
+            color: #eff6ff;
+        }
+
+        .features li::before {
+            content: "✓";
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        /* RIGHT SIDE */
+
+        .right-section {
+            width: 57%;
+            padding: 45px 55px;
+        }
+
+        .right-section h2 {
+            color: #172554;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d7deea;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+            background: #f8fafc;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563c7;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 199, 0.10);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #173b8f, #2563c7);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(37, 99, 199, 0.25);
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .login-text a {
+            color: #2563c7;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 750px) {
+
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 35px;
+            }
+
+            .right-section {
+                padding: 35px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            body {
+                padding: 15px;
+            }
+
+            .left-section h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- LEFT SECTION -->
+
+        <div class="left-section">
+
+            <div class="logo">
+                🎓
+            </div>
+
+            <h1>
+                Course Registration System
+            </h1>
+
+            <p>
+                Register for courses, manage your enrollments
+                and keep track of your academic journey in one place.
+            </p>
+
+            <ul class="features">
+
+                <li>Easy course registration</li>
+
+                <li>Manage your registered courses</li>
+
+                <li>View your academic information</li>
+
+                <li>Secure student account</li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- RIGHT SECTION -->
+
+        <div class="right-section">
+
+            <h2>Create Student Account</h2>
+
+            <p class="subtitle">
+                Enter your details to create your account.
+            </p>
+
+            <form method="POST">
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Department</label>
+
+                        <select name="department" required>
+
+                            <option value="" disabled selected>
+                                Select department
+                            </option>
+
+                            <option value="Computer">
+                                Computer Engineering
+                            </option>
+
+                            <option value="IT">
+                                Information Technology
+                            </option>
+
+                            <option value="ENTC">
+                                ENTC
+                            </option>
+
+                            <option value="Mechanical">
+                                Mechanical Engineering
+                            </option>
+
+                            <option value="Civil">
+                                Civil Engineering
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Year</label>
+
+                        <select name="year" required>
+
+                            <option value="" disabled selected>
+                                Select year
+                            </option>
+
+                            <option value="1">
+                                1st Year
+                            </option>
+
+                            <option value="2">
+                                2nd Year
+                            </option>
+
+                            <option value="3">
+                                3rd Year
+                            </option>
+
+                            <option value="4">
+                                4th Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit">
+                    Create Account →
+                </button>
+
+            </form>
+
+
+            <p class="login-text">
+                Already have an account?
+                <a href="{{ url_for('login') }}"">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

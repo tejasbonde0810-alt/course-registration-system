@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Certification Exam Registration</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f4f8ff;
+        color: #1e293b;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        height: 70px;
+
+        background: linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 50px;
+
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .back {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back:hover {
+        opacity: 0.8;
+    }
+
+
+    /* ================= CONTAINER ================= */
+
+    .container {
+        max-width: 650px;
+
+        margin: 50px auto;
+
+        padding: 0 20px;
+    }
+
+
+    /* ================= CARD ================= */
+
+    .card {
+        background: white;
+
+        border-radius: 18px;
+
+        padding: 35px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+        text-align: center;
+    }
+
+
+    h1 {
+        color: #172554;
+
+        margin-bottom: 10px;
+    }
+
+
+    .subtitle {
+        color: #64748b;
+
+        margin-bottom: 30px;
+    }
+
+
+    /* ================= COURSE INFORMATION ================= */
+
+    .course-box {
+        background: #eff6ff;
+
+        border: 1px solid #bfdbfe;
+
+        border-radius: 12px;
+
+        padding: 20px;
+
+        margin-bottom: 25px;
+
+        text-align: left;
+    }
+
+    .course-box p {
+        margin: 8px 0;
+    }
+
+
+    /* ================= EXAM FEE ================= */
+
+    .fee {
+        font-size: 25px;
+
+        font-weight: bold;
+
+        color: #2563eb;
+    }
+
+
+    /* ================= QR CODE ================= */
+
+    .qr-title {
+        color: #172554;
+
+        margin-bottom: 15px;
+    }
+
+
+    .qr-box {
+        margin: 0 auto 20px auto;
+
+        width: 240px;
+
+        height: 240px;
+
+        border: 2px dashed #94a3b8;
+
+        border-radius: 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #f8fafc;
+
+        overflow: hidden;
+    }
+
+
+    .qr-image {
+        width: 210px;
+
+        height: 210px;
+
+        object-fit: contain;
+    }
+
+
+    /* ================= INSTRUCTION ================= */
+
+    .instruction {
+        color: #64748b;
+
+        margin-bottom: 25px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= PAYMENT BUTTON ================= */
+
+    .payment-btn {
+        display: inline-block;
+
+        border: none;
+
+        background: #16a34a;
+
+        color: white;
+
+        padding: 13px 25px;
+
+        border-radius: 8px;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .payment-btn:hover {
+        background: #15803d;
+
+        transform: translateY(-1px);
+    }
+
+
+    /* ================= NOTE ================= */
+
+    .note {
+        margin-top: 20px;
+
+        font-size: 13px;
+
+        color: #64748b;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 700px) {
+
+        .navbar {
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 18px;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .card {
+            padding: 25px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <div class="logo">
+        🎓 Course Registration
+    </div>
+
+
+    <a href="{{ url_for('my_courses') }}"
+       class="back">
+
+        ← My Courses
+
+    </a>
+
+</div>
+
+
+
+<!-- ================= MAIN CONTAINER ================= -->
+
+<div class="container">
+
+
+    <div class="card">
+
+
+        <!-- ================= TITLE ================= -->
+
+        <h1>
+            Certification Exam Registration
+        </h1>
+
+
+        <p class="subtitle">
+
+            Complete the payment to register
+            for the certification exam.
+
+        </p>
+
+
+
+        <!-- ================= COURSE DETAILS ================= -->
+
+        <div class="course-box">
+
+
+            <p>
+
+                <strong>Course:</strong>
+
+                {{ course.course_name }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Department:</strong>
+
+                {{ course.department }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Credits:</strong>
+
+                {{ course.credits }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Exam Fee:</strong>
+
+                <span class="fee">
+
+                    ₹100
+
+                </span>
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- ================= QR CODE ================= -->
+
+        <h3 class="qr-title">
+
+            Scan QR Code to Pay ₹100
+
+        </h3>
+
+
+        <div class="qr-box">
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='payment_qr.jpg'
+                ) }}"
+                alt="Payment QR Code"
+                class="qr-image"
+            >
+
+        </div>
+
+
+        <p class="instruction">
+
+            Scan the QR code using your UPI application
+            and complete the payment of
+            <strong>₹100</strong>.
+
+        </p>
+
+
+
+        <!-- ================= PAYMENT CONFIRMATION ================= -->
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'confirm_exam_payment',
+                course_id=course.course_id
+            ) }}"
+        >
+
+            <button
+                type="submit"
+                class="payment-btn"
+            >
+
+                ✓ Payment Completed
+
+            </button>
+
+        </form>
+
+
+
+        <!-- ================= NOTE ================= -->
+
+        <p class="note">
+
+            Demo payment system for project purposes.
+            Payment verification will be integrated
+            with a payment gateway in the future.
+
+        </p>
+
+
+    </div>
+
+</div>
+```
+
+</body>
+
+</html>

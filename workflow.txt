@@ -1,0 +1,9 @@
+1. MySQL database → 
+2. Flask setup → 
+3. Student registration →
+ 4. Login → 
+ 5. Course management → 
+ 6. Course registration → 
+ 7. Admin dashboard →
+8. UI improvement → 
+9. Testing

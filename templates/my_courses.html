@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>My Courses</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f4f8ff;
+        color: #1e293b;
+        min-height: 100vh;
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        height: 70px;
+
+        background: linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 50px;
+
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .nav-links a:hover {
+        opacity: 0.8;
+    }
+
+
+    /* ================= CONTAINER ================= */
+
+    .container {
+        max-width: 1100px;
+
+        margin: 45px auto;
+
+        padding: 0 20px;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+        color: #172554;
+
+        margin-bottom: 8px;
+    }
+
+    .page-header p {
+        color: #64748b;
+    }
+
+
+    /* ================= COURSE GRID ================= */
+
+    .course-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fit, minmax(300px, 1fr));
+
+        gap: 25px;
+    }
+
+
+    /* ================= COURSE CARD ================= */
+
+    .course-card {
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 25px;
+
+        box-shadow:
+            0 5px 20px rgba(0,0,0,0.07);
+
+        border: 1px solid #e2e8f0;
+
+        transition: 0.2s;
+    }
+
+    .course-card:hover {
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 25px rgba(0,0,0,0.10);
+    }
+
+
+    /* ================= COURSE TITLE ================= */
+
+    .course-title {
+
+        color: #172554;
+
+        font-size: 21px;
+
+        margin-bottom: 18px;
+    }
+
+
+    /* ================= COURSE DETAILS ================= */
+
+    .course-details {
+
+        margin-bottom: 20px;
+    }
+
+    .course-details p {
+
+        margin: 9px 0;
+
+        color: #475569;
+    }
+
+    .course-details strong {
+
+        color: #1e293b;
+    }
+
+
+    /* ================= ACTIONS ================= */
+
+    .actions {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+
+        margin-top: 20px;
+    }
+
+
+    /* ================= DROP BUTTON ================= */
+
+    .drop-btn {
+
+        display: inline-block;
+
+        background: #fee2e2;
+
+        color: #b91c1c;
+
+        border: 1px solid #fecaca;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        transition: 0.2s;
+    }
+
+    .drop-btn:hover {
+
+        background: #fecaca;
+
+        color: #991b1b;
+    }
+
+
+    /* ================= EXAM BUTTON ================= */
+
+    .exam-btn {
+
+        display: inline-block;
+
+        background: #2563eb;
+
+        color: white;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        transition: 0.2s;
+    }
+
+    .exam-btn:hover {
+
+        background: #1d4ed8;
+
+        transform: translateY(-1px);
+    }
+
+
+    /* ================= REGISTERED EXAM ================= */
+
+    .exam-registered-btn {
+
+        display: inline-block;
+
+        background: #dcfce7;
+
+        color: #166534;
+
+        border: 1px solid #86efac;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        font-weight: bold;
+
+        cursor: default;
+    }
+
+
+    /* ================= EMPTY STATE ================= */
+
+    .empty-card {
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 50px 25px;
+
+        text-align: center;
+
+        box-shadow:
+            0 5px 20px rgba(0,0,0,0.07);
+
+        border: 1px solid #e2e8f0;
+    }
+
+    .empty-card h2 {
+
+        color: #172554;
+
+        margin-bottom: 10px;
+    }
+
+    .empty-card p {
+
+        color: #64748b;
+
+        margin-bottom: 20px;
+    }
+
+    .browse-btn {
+
+        display: inline-block;
+
+        background: #2563eb;
+
+        color: white;
+
+        padding: 11px 20px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+    }
+
+    .browse-btn:hover {
+
+        background: #1d4ed8;
+    }
+
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 700px) {
+
+        .navbar {
+
+            padding: 0 20px;
+
+        }
+
+        .logo {
+
+            font-size: 18px;
+
+        }
+
+        .nav-links {
+
+            gap: 12px;
+
+        }
+
+        .nav-links a {
+
+            font-size: 14px;
+
+        }
+
+        .container {
+
+            margin-top: 30px;
+
+        }
+
+        .course-card {
+
+            padding: 20px;
+
+        }
+
+        .actions {
+
+            flex-direction: column;
+
+        }
+
+        .drop-btn,
+        .exam-btn,
+        .exam-registered-btn {
+
+            text-align: center;
+
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <div class="logo">
+
+        🎓 Course Registration
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+
+            Dashboard
+
+        </a>
+
+
+        <a href="{{ url_for('courses') }}">
+
+            Courses
+
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= MAIN CONTAINER ================= -->
+
+<div class="container">
+
+
+    <!-- ================= PAGE HEADER ================= -->
+
+    <div class="page-header">
+
+        <h1>
+
+            📚 My Courses
+
+        </h1>
+
+        <p>
+
+            View and manage the courses you are currently enrolled in.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= COURSE LIST ================= -->
+
+    {% if enrollments %}
+
+        <div class="course-grid">
+
+            {% for enrollment in enrollments %}
+
+                <div class="course-card">
+
+
+                    <!-- COURSE NAME -->
+
+                    <h2 class="course-title">
+
+                        {{ enrollment.course.course_name }}
+
+                    </h2>
+
+
+
+                    <!-- COURSE DETAILS -->
+
+                    <div class="course-details">
+
+                        <p>
+
+                            <strong>Department:</strong>
+
+                            {{ enrollment.course.department }}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>Credits:</strong>
+
+                            {{ enrollment.course.credits }}
+
+                        </p>
+
+
+                        {% if enrollment.course.description %}
+
+                            <p>
+
+                                <strong>Description:</strong>
+
+                                {{ enrollment.course.description }}
+
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- ================= ACTIONS ================= -->
+
+                    <div class="actions">
+
+
+                        <!-- DROP COURSE -->
+
+                        <a
+                            href="{{ url_for(
+                                'drop_course',
+                                course_id=enrollment.course_id
+                            ) }}"
+                            class="drop-btn"
+
+                            onclick="return confirm(
+                                'Are you sure you want to drop this course?'
+                            );"
+                        >
+
+                            Drop Course
+
+                        </a>
+
+
+
+                        <!-- ================= EXAM STATUS ================= -->
+
+                        {% if enrollment.course_id in registered_exam_course_ids %}
+
+                            <span class="exam-registered-btn">
+
+                                ✅ You're Registered for Exam
+
+                            </span>
+
+                        {% else %}
+
+                            <a
+                                href="{{ url_for(
+                                    'register_exam',
+                                    course_id=enrollment.course_id
+                                ) }}"
+                                class="exam-btn"
+                            >
+
+                                🎓 Register for Certification Exam
+
+                            </a>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- ================= EMPTY STATE ================= -->
+
+        <div class="empty-card">
+
+            <h2>
+
+                📚 No Courses Registered
+
+            </h2>
+
+            <p>
+
+                You haven't registered for any courses yet.
+
+            </p>
+
+            <a
+                href="{{ url_for('courses') }}"
+                class="browse-btn"
+            >
+
+                Browse Courses
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+```
+
+</body>
+
+</html>

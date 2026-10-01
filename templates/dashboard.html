@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f8ff;
+            color: #1e293b;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #1d4ed8
+            );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 50px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0, 0, 0, 0.1);
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        .nav-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+        }
+
+
+        .welcome {
+
+            font-size: 15px;
+
+        }
+
+
+        .logout {
+
+            background: white;
+
+            color: #2563eb;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .logout:hover {
+
+            background: #e0e7ff;
+
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 40px auto;
+
+            padding: 0 25px;
+
+        }
+
+
+        /* ================= HEADING ================= */
+
+        .heading {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 30px;
+
+            color: #172554;
+
+        }
+
+
+        .heading p {
+
+            color: #64748b;
+
+            margin-top: 8px;
+
+        }
+
+
+        /* ================= PROFILE CARD ================= */
+
+        .profile-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+
+            margin-bottom: 30px;
+
+            border: 1px solid #eef2ff;
+
+        }
+
+
+        .profile-icon {
+
+            width: 75px;
+
+            height: 75px;
+
+            background: #dbeafe;
+
+            color: #2563eb;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+        }
+
+
+        .profile-info h2 {
+
+            color: #172554;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .profile-info p {
+
+            color: #64748b;
+
+        }
+
+
+        /* ================= DASHBOARD CARDS ================= */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+
+            border: 1px solid #eef2ff;
+
+            transition: 0.25s;
+
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 0, 0, 0.10);
+
+        }
+
+
+        .card-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            background: #dbeafe;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .card h3 {
+
+            color: #172554;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .card p {
+
+            color: #64748b;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .card-button {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 9px 17px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .card-button:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+
+                padding: 0 25px;
+
+            }
+
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 20px;
+
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+
+            }
+
+
+            .welcome {
+
+                display: none;
+
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .profile-card {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <div class="navbar">
+
+
+        <div class="logo">
+
+            🎓 Course Registration
+
+        </div>
+
+
+        <div class="nav-right">
+
+
+            <div class="welcome">
+
+                Welcome, {{ student_name }}
+
+            </div>
+
+
+            <a href="{{ url_for('logout') }}"
+               class="logout">
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="container">
+
+
+        <!-- ================= HEADING ================= -->
+
+        <div class="heading">
+
+
+            <h1>
+
+                Student Dashboard
+
+            </h1>
+
+
+            <p>
+
+                Manage your courses and academic information.
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <div class="profile-card">
+
+
+            <div class="profile-icon">
+
+                👤
+
+            </div>
+
+
+            <div class="profile-info">
+
+
+                <h2>
+
+                    {{ student_name }}
+
+                </h2>
+
+
+                <p>
+
+                    Student • Course Registration System
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DASHBOARD CARDS
+        ================================================== -->
+
+        <div class="cards">
+
+
+            <!-- ================= AVAILABLE COURSES ================= -->
+
+            <div class="card">
+
+
+                <div class="card-icon">
+
+                    📚
+
+                </div>
+
+
+                <h3>
+
+                    Available Courses
+
+                </h3>
+
+
+                <p>
+
+                    Browse the courses available
+                    for registration.
+
+                </p>
+
+
+                <a href="{{ url_for('courses') }}"
+                   class="card-button">
+
+                    Browse Courses
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- ================= MY COURSES ================= -->
+
+            <div class="card">
+
+
+                <div class="card-icon">
+
+                    📝
+
+                </div>
+
+
+                <h3>
+
+                    My Courses
+
+                </h3>
+
+
+                <p>
+
+                    View the courses you have
+                    registered for.
+
+                </p>
+
+
+                <!-- UPDATED BUTTON -->
+
+                <a href="{{ url_for('my_courses') }}"
+                   class="card-button">
+
+                    View Courses
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- ================= MY PROFILE ================= -->
+
+            <div class="card">
+
+
+                <div class="card-icon">
+
+                    👤
+
+                </div>
+
+
+                <h3>
+
+                    My Profile
+
+                </h3>
+
+
+                <p>
+
+                    View your personal and
+                    academic information.
+
+                </p>
+
+
+                <a href="{{ url_for('profile') }}"
+                   class="card-button">
+
+                    View Profile
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

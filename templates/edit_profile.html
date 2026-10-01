@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile</title>
+
+
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+
+        body {
+
+            background: #f4f8ff;
+
+            color: #1e293b;
+
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #1d4ed8
+            );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 50px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0, 0, 0, 0.1);
+
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        .back {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .back:hover {
+
+            opacity: 0.8;
+
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+
+            max-width: 700px;
+
+            margin: 45px auto;
+
+            padding: 0 25px;
+
+        }
+
+
+        /* ================= HEADING ================= */
+
+        .heading {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 30px;
+
+            color: #172554;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .heading p {
+
+            color: #64748b;
+
+        }
+
+
+        /* ================= FORM CARD ================= */
+
+        .form-card {
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+
+            border: 1px solid #eef2ff;
+
+        }
+
+
+        /* ================= FORM GROUP ================= */
+
+        .form-group {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            color: #334155;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.2s;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px #dbeafe;
+
+        }
+
+
+        /* ================= EMAIL ================= */
+
+        .email-box {
+
+            background: #f1f5f9;
+
+            color: #64748b;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .email-note {
+
+            margin-top: 6px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            gap: 12px;
+
+        }
+
+
+        .save-button {
+
+            border: none;
+
+            padding: 11px 22px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+
+        .save-button:hover {
+
+            background: #1d4ed8;
+
+        }
+
+
+        .cancel-button {
+
+            display: inline-block;
+
+            padding: 11px 22px;
+
+            background: #e2e8f0;
+
+            color: #334155;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+        }
+
+
+        .cancel-button:hover {
+
+            background: #cbd5e1;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 20px;
+
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+
+            }
+
+
+            .form-card {
+
+                padding: 25px;
+
+            }
+
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar">
+
+
+        <div class="logo">
+
+            🎓 Course Registration
+
+        </div>
+
+
+        <a href="{{ url_for('profile') }}"
+           class="back">
+
+            ← My Profile
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="container">
+
+
+        <!-- ================= HEADING ================= -->
+
+        <div class="heading">
+
+            <h1>
+
+                Edit Profile
+
+            </h1>
+
+
+            <p>
+
+                Update your personal and academic information.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <div class="form-card">
+
+
+            <form method="POST">
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+
+                        Full Name
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ student.name }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        Email Address
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ student.email }}"
+                        class="email-box"
+                        readonly
+                    >
+
+
+                    <p class="email-note">
+
+                        Email cannot be changed because it is
+                        used for login.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="form-group">
+
+                    <label for="department">
+
+                        Department
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="department"
+                        name="department"
+                        value="{{ student.department }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- YEAR -->
+
+                <div class="form-group">
+
+                    <label for="year">
+
+                        Academic Year
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="year"
+                        name="year"
+                        value="{{ student.year }}"
+                        min="1"
+                        max="4"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="buttons">
+
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        💾 Save Changes
+
+                    </button>
+
+
+                    <a
+                        href="{{ url_for('profile') }}"
+                        class="cancel-button">
+
+                        Cancel
+
+                    </a>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

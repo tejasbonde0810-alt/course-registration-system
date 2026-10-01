@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+
+
+    <style>
+
+        /* ================= GLOBAL ================= */
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+
+        body {
+
+            background: #f4f8ff;
+
+            color: #1e293b;
+
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #1d4ed8
+            );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 50px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0, 0, 0, 0.1);
+
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+
+        .back {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .back:hover {
+
+            opacity: 0.8;
+
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+
+            max-width: 1000px;
+
+            margin: 45px auto;
+
+            padding: 0 25px;
+
+        }
+
+
+        /* ================= HEADING ================= */
+
+        .heading {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 30px;
+
+            color: #172554;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .heading p {
+
+            color: #64748b;
+
+        }
+
+
+        /* ================= PROFILE CARD ================= */
+
+        .profile-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+
+            border: 1px solid #eef2ff;
+
+        }
+
+
+        /* ================= PROFILE HEADER ================= */
+
+        .profile-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            padding-bottom: 30px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+        }
+
+
+        .profile-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            background: #dbeafe;
+
+            color: #2563eb;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 40px;
+
+        }
+
+
+        .profile-header h2 {
+
+            color: #172554;
+
+            font-size: 25px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .profile-header p {
+
+            color: #64748b;
+
+        }
+
+
+        /* ================= PROFILE DETAILS ================= */
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+            margin-top: 30px;
+
+        }
+
+
+        .detail-box {
+
+            background: #f8fafc;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .detail-label {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .detail-value {
+
+            color: #172554;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ================= COURSE COUNT ================= */
+
+        .course-count {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #eff6ff;
+
+            border-radius: 12px;
+
+            border: 1px solid #bfdbfe;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .course-count-text h3 {
+
+            color: #172554;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .course-count-text p {
+
+            color: #64748b;
+
+        }
+
+
+        .count {
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+
+        }
+
+
+        /* ================= ACTION BUTTONS ================= */
+
+        .actions {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        /* ================= EDIT BUTTON ================= */
+
+        .edit-button {
+
+            display: inline-block;
+
+            padding: 11px 20px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .edit-button:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back-button {
+
+            display: inline-block;
+
+            padding: 11px 20px;
+
+            background: #e2e8f0;
+
+            color: #334155;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .back-button:hover {
+
+            background: #cbd5e1;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 0 20px;
+
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+
+            }
+
+
+            .container {
+
+                margin-top: 30px;
+
+            }
+
+
+            .profile-card {
+
+                padding: 25px;
+
+            }
+
+
+            .profile-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .details {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .course-count {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+            }
+
+
+            .actions {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .edit-button,
+
+            .back-button {
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <div class="navbar">
+
+
+        <div class="logo">
+
+            🎓 Course Registration
+
+        </div>
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="back">
+
+            ← Dashboard
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="container">
+
+
+        <!-- ================= HEADING ================= -->
+
+        <div class="heading">
+
+            <h1>
+
+                My Profile
+
+            </h1>
+
+
+            <p>
+
+                View your personal and academic information.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROFILE CARD
+        ================================================== -->
+
+        <div class="profile-card">
+
+
+            <!-- ================= PROFILE HEADER ================= -->
+
+            <div class="profile-header">
+
+
+                <div class="profile-icon">
+
+                    👤
+
+                </div>
+
+
+                <div>
+
+                    <h2>
+
+                        {{ student.name }}
+
+                    </h2>
+
+
+                    <p>
+
+                        Student • Course Registration System
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROFILE DETAILS
+            ================================================== -->
+
+            <div class="details">
+
+
+                <!-- ================= STUDENT ID ================= -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+
+                        Student ID
+
+                    </div>
+
+
+                    <div class="detail-value">
+
+                        #{{ student.student_id }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= EMAIL ================= -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+
+                        Email Address
+
+                    </div>
+
+
+                    <div class="detail-value">
+
+                        {{ student.email }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= DEPARTMENT ================= -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+
+                        Department
+
+                    </div>
+
+
+                    <div class="detail-value">
+
+                        {{ student.department }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= YEAR ================= -->
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+
+                        Academic Year
+
+                    </div>
+
+
+                    <div class="detail-value">
+
+                        Year {{ student.year }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REGISTERED COURSES
+            ================================================== -->
+
+            <div class="course-count">
+
+
+                <div class="course-count-text">
+
+                    <h3>
+
+                        📚 Registered Courses
+
+                    </h3>
+
+
+                    <p>
+
+                        Total number of courses you have registered.
+
+                    </p>
+
+                </div>
+
+
+                <div class="count">
+
+                    {{ registered_courses }}
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+            ================================================== -->
+
+            <div class="actions">
+
+
+                <!-- EDIT PROFILE -->
+
+                <a href="{{ url_for('edit_profile') }}"
+                   class="edit-button">
+
+                    ✏️ Edit Profile
+
+                </a>
+
+
+                <!-- BACK TO DASHBOARD -->
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="back-button">
+
+                    ← Back to Dashboard
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
