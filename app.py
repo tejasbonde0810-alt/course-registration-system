@@ -1,5 +1,3 @@
-
-
 from flask import (
     Flask,
     render_template,
@@ -16,6 +14,7 @@ from werkzeug.security import (
 
 from dotenv import load_dotenv
 import os
+from werkzeug.utils import secure_filename
 
 from extensions import db
 
@@ -35,6 +34,26 @@ app = Flask(__name__)
 
 
 # =========================================================
+# PDF UPLOAD CONFIGURATION
+# =========================================================
+
+app.config["UPLOAD_FOLDER"] = os.path.join(
+    app.root_path,
+    "static",
+    "books"
+)
+
+ALLOWED_EXTENSIONS = {"pdf"}
+
+
+def allowed_file(filename):
+    return (
+        "." in filename
+        and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+    )
+
+
+# =========================================================
 # DATABASE CONFIGURATION
 # =========================================================
 
@@ -51,6 +70,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 # =========================================================
 # INITIALIZE DATABASE
 # =========================================================
@@ -64,8 +84,10 @@ db.init_app(app)
 
 from models.student import Student
 from models.course import Course
+from models.book import Book
 from models.enrollment import Enrollment
 from models.certification_exam import CertificationExam
+
 
 # =========================================================
 # HOME PAGE
@@ -195,9 +217,24 @@ def login():
         ):
 
             session["student_id"] = student.student_id
-
+            session["role"] = student.role
             session["student_name"] = student.name
 
+
+            # -------------------------------------------------
+            # ADMIN REDIRECT
+            # -------------------------------------------------
+
+            if student.role == "admin":
+
+                return redirect(
+                    url_for("admin_dashboard")
+                )
+
+
+            # -------------------------------------------------
+            # STUDENT REDIRECT
+            # -------------------------------------------------
 
             return redirect(
                 url_for("dashboard")
@@ -209,6 +246,218 @@ def login():
 
     return render_template(
         "login.html"
+    )
+
+
+# =========================================================
+# ADMIN DASHBOARD
+# =========================================================
+
+@app.route("/admin")
+def admin_dashboard():
+
+    if "student_id" not in session:
+
+        return redirect(
+            url_for("login")
+        )
+
+
+    if session.get("role") != "admin":
+
+        return "Access Denied", 403
+
+
+    student = Student.query.get(
+        session["student_id"]
+    )
+
+
+    courses = Course.query.all()
+
+    books = Book.query.all()
+
+    students = Student.query.all()
+
+
+    return render_template(
+
+        "admin_dashboard.html",
+
+        student=student,
+
+        courses=courses,
+
+        books=books,
+
+        students=students
+
+    )
+
+
+# =========================================================
+# ADMIN PDF UPLOAD
+# =========================================================
+
+@app.route(
+    "/admin/upload-book",
+    methods=["GET", "POST"]
+)
+def admin_upload_book():
+
+    if "student_id" not in session:
+
+        return redirect(
+            url_for("login")
+        )
+
+
+    if session.get("role") != "admin":
+
+        return "Access Denied", 403
+
+
+    courses = Course.query.all()
+
+
+    if request.method == "POST":
+
+        course_id = request.form.get(
+            "course_id"
+        )
+
+        book_name = request.form.get(
+            "book_name"
+        )
+
+        description = request.form.get(
+            "description"
+        )
+
+        file = request.files.get(
+            "file"
+        )
+
+
+        # -------------------------------------------------
+        # Validate required fields
+        # -------------------------------------------------
+
+        if (
+            not course_id
+            or not book_name
+            or not file
+        ):
+
+            return (
+                "Please fill all required fields.",
+                400
+            )
+
+
+        # -------------------------------------------------
+        # Check PDF extension
+        # -------------------------------------------------
+
+        if not allowed_file(
+            file.filename
+        ):
+
+            return (
+                "Only PDF files are allowed.",
+                400
+            )
+
+
+        # -------------------------------------------------
+        # Secure filename
+        # -------------------------------------------------
+
+        filename = secure_filename(
+            file.filename
+        )
+
+
+        # -------------------------------------------------
+        # Create upload folder
+        # -------------------------------------------------
+
+        upload_folder = app.config[
+            "UPLOAD_FOLDER"
+        ]
+
+
+        os.makedirs(
+            upload_folder,
+            exist_ok=True
+        )
+
+
+        # -------------------------------------------------
+        # Create file path
+        # -------------------------------------------------
+
+        file_path = os.path.join(
+
+            upload_folder,
+
+            filename
+
+        )
+
+
+        # -------------------------------------------------
+        # Save PDF
+        # -------------------------------------------------
+
+        file.save(
+            file_path
+        )
+
+
+        # -------------------------------------------------
+        # Save PDF information in database
+        # -------------------------------------------------
+
+        book = Book(
+
+            course_id=int(
+                course_id
+            ),
+
+            book_name=book_name,
+
+            description=description,
+
+            file_path=f"books/{filename}"
+
+        )
+
+
+        db.session.add(
+            book
+        )
+
+        db.session.commit()
+
+
+        # -------------------------------------------------
+        # Return to admin dashboard
+        # -------------------------------------------------
+
+        return redirect(
+            url_for(
+                "admin_dashboard"
+            )
+        )
+
+
+    return render_template(
+
+        "admin_upload_book.html",
+
+        courses=courses
+
     )
 
 
@@ -232,7 +481,9 @@ def dashboard():
 
         "dashboard.html",
 
-        student_name=session["student_name"]
+        student_name=session[
+            "student_name"
+        ]
 
     )
 
@@ -277,7 +528,8 @@ def courses():
         # Calculate available seats
 
         available_seats = (
-            course.capacity - registered_count
+            course.capacity
+            - registered_count
         )
 
 
@@ -326,12 +578,16 @@ def register_course(course_id):
 
     # Get logged-in student's ID
 
-    student_id = session["student_id"]
+    student_id = session[
+        "student_id"
+    ]
 
 
     # Find course
 
-    course = Course.query.get(course_id)
+    course = Course.query.get(
+        course_id
+    )
 
 
     # Check whether course exists
@@ -356,7 +612,10 @@ def register_course(course_id):
 
     if existing_enrollment:
 
-        return "You are already registered for this course!"
+        return (
+            "You are already registered "
+            "for this course!"
+        )
 
 
     # -------------------------------------------------
@@ -376,7 +635,9 @@ def register_course(course_id):
 
     if registered_count >= course.capacity:
 
-        return "Sorry, this course is full!"
+        return (
+            "Sorry, this course is full!"
+        )
 
 
     # -------------------------------------------------
@@ -394,7 +655,9 @@ def register_course(course_id):
 
     # Save enrollment
 
-    db.session.add(enrollment)
+    db.session.add(
+        enrollment
+    )
 
     db.session.commit()
 
@@ -418,27 +681,26 @@ def my_courses():
 
     student_id = session["student_id"]
 
+    # Get all courses registered by the student
     enrollments = Enrollment.query.filter_by(
         student_id=student_id
     ).all()
 
-    exam_registrations = CertificationExam.query.filter_by(
-        student_id=student_id
-    ).all()
-
+    # Get paid exam registrations
     registered_exam_course_ids = {
-    exam.course_id
-    for exam in CertificationExam.query.filter_by(
-        student_id=session["student_id"]
-    ).all()
-    if exam.payment_status == "Paid"
-}
+        exam.course_id
+        for exam in CertificationExam.query.filter_by(
+            student_id=student_id
+        ).all()
+        if exam.payment_status == "Paid"
+    }
 
     return render_template(
-    "my_courses.html",
-    enrollments=enrollments,
-    registered_exam_course_ids=registered_exam_course_ids
-)
+        "my_courses.html",
+        enrollments=enrollments,
+        registered_exam_course_ids=registered_exam_course_ids
+    )
+
 # =========================================================
 # CERTIFICATION EXAM REGISTRATION
 # =========================================================
@@ -447,50 +709,93 @@ def my_courses():
 def register_exam(course_id):
 
     if "student_id" not in session:
-        return redirect(url_for("login"))
 
-    student_id = session["student_id"]
-
-    # Check whether student is registered for this course
-    enrollment = Enrollment.query.filter_by(
-        student_id=student_id,
-        course_id=course_id
-    ).first()
-
-    if not enrollment:
-        return "You must register for the course first!"
-
-    course = Course.query.get(course_id)
-
-    if not course:
-        return "Course not found!"
-
-    # Check whether exam registration already exists
-    existing_exam = CertificationExam.query.filter_by(
-        student_id=student_id,
-        course_id=course_id
-    ).first()
-
-    if existing_exam:
-        return render_template(
-            "exam_payment.html",
-            course=course,
-            exam=existing_exam
+        return redirect(
+            url_for("login")
         )
 
-    # Certification exam fee
-    exam_fee = 100
 
-    return render_template(
-        "exam_payment.html",
-        course=course,
-        exam=None,
-        exam_fee=exam_fee
+    student_id = session[
+        "student_id"
+    ]
+
+
+    # Check whether student is registered
+    # for this course
+
+    enrollment = Enrollment.query.filter_by(
+
+        student_id=student_id,
+
+        course_id=course_id
+
+    ).first()
+
+
+    if not enrollment:
+
+        return (
+            "You must register for "
+            "the course first!"
+        )
+
+
+    course = Course.query.get(
+        course_id
     )
 
 
+    if not course:
+
+        return "Course not found!"
 
 
+    # Check whether exam registration
+    # already exists
+
+    existing_exam = CertificationExam.query.filter_by(
+
+        student_id=student_id,
+
+        course_id=course_id
+
+    ).first()
+
+
+    if existing_exam:
+
+        return render_template(
+
+            "exam_payment.html",
+
+            course=course,
+
+            exam=existing_exam
+
+        )
+
+
+    # Certification exam fee
+
+    exam_fee = 100
+
+
+    return render_template(
+
+        "exam_payment.html",
+
+        course=course,
+
+        exam=None,
+
+        exam_fee=exam_fee
+
+    )
+
+
+# =========================================================
+# CONFIRM EXAM PAYMENT
+# =========================================================
 
 @app.route(
     "/confirm-exam-payment/<int:course_id>",
@@ -499,91 +804,173 @@ def register_exam(course_id):
 def confirm_exam_payment(course_id):
 
     if "student_id" not in session:
-        return redirect(url_for("login"))
 
-    student_id = session["student_id"]
+        return redirect(
+            url_for("login")
+        )
+
+
+    student_id = session[
+        "student_id"
+    ]
+
 
     # Find the course
-    course = Course.query.get(course_id)
+
+    course = Course.query.get(
+        course_id
+    )
+
 
     if not course:
+
         return "Course not found!"
 
-    # Check whether student is registered for this course
+
+    # Check whether student is registered
+    # for this course
+
     enrollment = Enrollment.query.filter_by(
+
         student_id=student_id,
+
         course_id=course_id
+
     ).first()
+
 
     if not enrollment:
-        return "You must register for the course first!"
+
+        return (
+            "You must register for "
+            "the course first!"
+        )
+
 
     # Check existing exam registration
+
     existing_exam = CertificationExam.query.filter_by(
+
         student_id=student_id,
+
         course_id=course_id
+
     ).first()
 
+
     # If already registered and paid
+
     if existing_exam:
 
         if existing_exam.payment_status == "Paid":
 
             return redirect(
+
                 url_for(
+
                     "exam_success",
+
                     exam_id=existing_exam.exam_id
+
                 )
+
             )
 
-        # If record exists but payment was pending,
-        # mark it as paid
+
+        # If record exists but payment
+        # was pending, mark it as paid
+
         existing_exam.payment_status = "Paid"
+
         existing_exam.registration_status = "Registered"
 
         db.session.commit()
 
+
         return redirect(
+
             url_for(
+
                 "exam_success",
+
                 exam_id=existing_exam.exam_id
+
             )
+
         )
+
 
     # Create a new exam registration
+
     exam = CertificationExam(
+
         student_id=student_id,
+
         course_id=course_id,
+
         exam_fee=100,
+
         payment_status="Paid",
+
         registration_status="Registered"
+
     )
 
-    db.session.add(exam)
+
+    db.session.add(
+        exam
+    )
+
     db.session.commit()
 
+
     return redirect(
+
         url_for(
+
             "exam_success",
+
             exam_id=exam.exam_id
+
         )
+
     )
 
-@app.route("/exam-success/<int:exam_id>")
+
+# =========================================================
+# EXAM SUCCESS
+# =========================================================
+
+@app.route(
+    "/exam-success/<int:exam_id>"
+)
 def exam_success(exam_id):
 
     if "student_id" not in session:
-        return redirect(url_for("login"))
 
-    exam = CertificationExam.query.get(exam_id)
+        return redirect(
+            url_for("login")
+        )
+
+
+    exam = CertificationExam.query.get(
+        exam_id
+    )
+
 
     if not exam:
+
         return "Exam registration not found!"
 
+
     return render_template(
+
         "exam_success.html",
+
         exam=exam
+
     )
+
 
 # =========================================================
 # DROP COURSE
@@ -603,7 +990,9 @@ def drop_course(course_id):
 
     # Get logged-in student's ID
 
-    student_id = session["student_id"]
+    student_id = session[
+        "student_id"
+    ]
 
 
     # Find enrollment
@@ -621,12 +1010,17 @@ def drop_course(course_id):
 
     if not enrollment:
 
-        return "You are not registered for this course!"
+        return (
+            "You are not registered "
+            "for this course!"
+        )
 
 
     # Delete enrollment
 
-    db.session.delete(enrollment)
+    db.session.delete(
+        enrollment
+    )
 
     db.session.commit()
 
@@ -656,12 +1050,16 @@ def profile():
 
     # Get logged-in student's ID
 
-    student_id = session["student_id"]
+    student_id = session[
+        "student_id"
+    ]
 
 
     # Find student
 
-    student = Student.query.get(student_id)
+    student = Student.query.get(
+        student_id
+    )
 
 
     # Check student
@@ -695,7 +1093,10 @@ def profile():
 # EDIT PROFILE
 # =========================================================
 
-@app.route("/edit-profile", methods=["GET", "POST"])
+@app.route(
+    "/edit-profile",
+    methods=["GET", "POST"]
+)
 def edit_profile():
 
     # Check login
@@ -709,12 +1110,16 @@ def edit_profile():
 
     # Get logged-in student's ID
 
-    student_id = session["student_id"]
+    student_id = session[
+        "student_id"
+    ]
 
 
     # Get student
 
-    student = Student.query.get(student_id)
+    student = Student.query.get(
+        student_id
+    )
 
 
     # Check student
@@ -730,11 +1135,17 @@ def edit_profile():
 
     if request.method == "POST":
 
-        name = request.form["name"]
+        name = request.form[
+            "name"
+        ]
 
-        department = request.form["department"]
+        department = request.form[
+            "department"
+        ]
 
-        year = request.form["year"]
+        year = request.form[
+            "year"
+        ]
 
 
         # Update student information
@@ -748,7 +1159,9 @@ def edit_profile():
 
         # Update session name
 
-        session["student_name"] = name
+        session[
+            "student_name"
+        ] = name
 
 
         # Save changes

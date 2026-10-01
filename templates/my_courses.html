@@ -1,602 +1,642 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Courses</title>
+    <title>My Courses</title>
 
-<style>
+    <style>
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
-
-    body {
-        background: #f4f8ff;
-        color: #1e293b;
-        min-height: 100vh;
-    }
-
-
-    /* ================= NAVBAR ================= */
-
-    .navbar {
-        height: 70px;
-
-        background: linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-
-        color: white;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding: 0 50px;
-
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    .logo {
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 25px;
-    }
-
-    .nav-links a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .nav-links a:hover {
-        opacity: 0.8;
-    }
-
-
-    /* ================= CONTAINER ================= */
-
-    .container {
-        max-width: 1100px;
-
-        margin: 45px auto;
-
-        padding: 0 20px;
-    }
-
-
-    /* ================= HEADER ================= */
-
-    .page-header {
-        margin-bottom: 30px;
-    }
-
-    .page-header h1 {
-        color: #172554;
-
-        margin-bottom: 8px;
-    }
-
-    .page-header p {
-        color: #64748b;
-    }
-
-
-    /* ================= COURSE GRID ================= */
-
-    .course-grid {
-
-        display: grid;
-
-        grid-template-columns:
-            repeat(auto-fit, minmax(300px, 1fr));
-
-        gap: 25px;
-    }
-
-
-    /* ================= COURSE CARD ================= */
-
-    .course-card {
-
-        background: white;
-
-        border-radius: 16px;
-
-        padding: 25px;
-
-        box-shadow:
-            0 5px 20px rgba(0,0,0,0.07);
-
-        border: 1px solid #e2e8f0;
-
-        transition: 0.2s;
-    }
-
-    .course-card:hover {
-
-        transform: translateY(-3px);
-
-        box-shadow:
-            0 8px 25px rgba(0,0,0,0.10);
-    }
-
-
-    /* ================= COURSE TITLE ================= */
-
-    .course-title {
-
-        color: #172554;
-
-        font-size: 21px;
-
-        margin-bottom: 18px;
-    }
-
-
-    /* ================= COURSE DETAILS ================= */
-
-    .course-details {
-
-        margin-bottom: 20px;
-    }
-
-    .course-details p {
-
-        margin: 9px 0;
-
-        color: #475569;
-    }
-
-    .course-details strong {
-
-        color: #1e293b;
-    }
-
-
-    /* ================= ACTIONS ================= */
-
-    .actions {
-
-        display: flex;
-
-        flex-wrap: wrap;
-
-        gap: 10px;
-
-        margin-top: 20px;
-    }
-
-
-    /* ================= DROP BUTTON ================= */
-
-    .drop-btn {
-
-        display: inline-block;
-
-        background: #fee2e2;
-
-        color: #b91c1c;
-
-        border: 1px solid #fecaca;
-
-        padding: 10px 15px;
-
-        border-radius: 8px;
-
-        text-decoration: none;
-
-        font-weight: bold;
-
-        transition: 0.2s;
-    }
-
-    .drop-btn:hover {
-
-        background: #fecaca;
-
-        color: #991b1b;
-    }
-
-
-    /* ================= EXAM BUTTON ================= */
-
-    .exam-btn {
-
-        display: inline-block;
-
-        background: #2563eb;
-
-        color: white;
-
-        padding: 10px 15px;
-
-        border-radius: 8px;
-
-        text-decoration: none;
-
-        font-weight: bold;
-
-        transition: 0.2s;
-    }
-
-    .exam-btn:hover {
-
-        background: #1d4ed8;
-
-        transform: translateY(-1px);
-    }
-
-
-    /* ================= REGISTERED EXAM ================= */
-
-    .exam-registered-btn {
-
-        display: inline-block;
-
-        background: #dcfce7;
-
-        color: #166534;
-
-        border: 1px solid #86efac;
-
-        padding: 10px 15px;
-
-        border-radius: 8px;
-
-        font-weight: bold;
-
-        cursor: default;
-    }
-
-
-    /* ================= EMPTY STATE ================= */
-
-    .empty-card {
-
-        background: white;
-
-        border-radius: 16px;
-
-        padding: 50px 25px;
-
-        text-align: center;
-
-        box-shadow:
-            0 5px 20px rgba(0,0,0,0.07);
-
-        border: 1px solid #e2e8f0;
-    }
-
-    .empty-card h2 {
-
-        color: #172554;
-
-        margin-bottom: 10px;
-    }
-
-    .empty-card p {
-
-        color: #64748b;
-
-        margin-bottom: 20px;
-    }
-
-    .browse-btn {
-
-        display: inline-block;
-
-        background: #2563eb;
-
-        color: white;
-
-        padding: 11px 20px;
-
-        border-radius: 8px;
-
-        text-decoration: none;
-
-        font-weight: bold;
-    }
-
-    .browse-btn:hover {
-
-        background: #1d4ed8;
-    }
-
-
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 700px) {
-
-        .navbar {
-
-            padding: 0 20px;
-
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
 
-        .logo {
-
-            font-size: 18px;
-
-        }
-
-        .nav-links {
-
-            gap: 12px;
-
-        }
-
-        .nav-links a {
-
-            font-size: 14px;
-
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+            padding: 30px;
         }
 
         .container {
-
-            margin-top: 30px;
-
+            max-width: 1200px;
+            margin: auto;
         }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            background: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .button.secondary {
+            background: #6b7280;
+        }
+
+        .button.secondary:hover {
+            background: #4b5563;
+        }
+
+        /* COURSE CARD */
 
         .course-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
 
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .course-title {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .course-department {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 5px 10px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* STUDY MATERIAL */
+
+        .book {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .book-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .book-icon {
+            font-size: 30px;
+        }
+
+        .book-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .book-description {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .pdf-button {
+            display: inline-block;
+            padding: 9px 15px;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .pdf-button:hover {
+            background: #b91c1c;
+        }
+
+        .no-material {
+            background: #f9fafb;
+            padding: 18px;
+            border-radius: 10px;
+            color: #6b7280;
+        }
+
+        /* EXAM */
+
+        .exam-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
             padding: 20px;
-
         }
 
-        .actions {
-
-            flex-direction: column;
-
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .drop-btn,
-        .exam-btn,
-        .exam-registered-btn {
+        .exam-fee {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1d4ed8;
+        }
 
+        .exam-status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .exam-button {
+            display: inline-block;
+            padding: 11px 18px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .exam-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* DROP COURSE */
+
+        .drop-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 9px 15px;
+            background: #ef4444;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .drop-button:hover {
+            background: #dc2626;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            background: white;
+            padding: 50px;
             text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .header-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+            .course-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .book {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .exam-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
 
         }
 
-    }
-
-</style>
-```
+    </style>
 
 </head>
 
+
 <body>
 
-```
-<!-- ================= NAVBAR ================= -->
-
-<div class="navbar">
-
-    <div class="logo">
-
-        🎓 Course Registration
-
-    </div>
-
-
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-
-            Dashboard
-
-        </a>
-
-
-        <a href="{{ url_for('courses') }}">
-
-            Courses
-
-        </a>
-
-
-        <a href="{{ url_for('logout') }}">
-
-            Logout
-
-        </a>
-
-    </div>
-
-</div>
-
-
-
-<!-- ================= MAIN CONTAINER ================= -->
 
 <div class="container">
 
 
-    <!-- ================= PAGE HEADER ================= -->
+    <!-- HEADER -->
 
-    <div class="page-header">
+    <div class="header">
 
-        <h1>
+        <div>
 
-            📚 My Courses
+            <h1>🎓 My Courses</h1>
 
-        </h1>
+            <p>
+                Manage your courses, study materials and certification exams
+            </p>
 
-        <p>
+        </div>
 
-            View and manage the courses you are currently enrolled in.
 
-        </p>
+        <div class="header-buttons">
+
+            <a
+                href="{{ url_for('courses') }}"
+                class="button"
+            >
+                📚 Browse Courses
+            </a>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="button secondary"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
 
     </div>
 
 
-
-    <!-- ================= COURSE LIST ================= -->
+    <!-- CHECK WHETHER STUDENT HAS COURSES -->
 
     {% if enrollments %}
 
-        <div class="course-grid">
 
-            {% for enrollment in enrollments %}
-
-                <div class="course-card">
+        {% for enrollment in enrollments %}
 
 
-                    <!-- COURSE NAME -->
-
-                    <h2 class="course-title">
-
-                        {{ enrollment.course.course_name }}
-
-                    </h2>
+            {% set course = enrollment.course %}
 
 
-
-                    <!-- COURSE DETAILS -->
-
-                    <div class="course-details">
-
-                        <p>
-
-                            <strong>Department:</strong>
-
-                            {{ enrollment.course.department }}
-
-                        </p>
+            <div class="course-card">
 
 
-                        <p>
+                <!-- COURSE HEADER -->
 
-                            <strong>Credits:</strong>
+                <div class="course-header">
 
-                            {{ enrollment.course.credits }}
+                    <div>
 
-                        </p>
+                        <div class="course-title">
+
+                            📘 {{ course.course_name }}
+
+                        </div>
 
 
-                        {% if enrollment.course.description %}
+                        {% if course.department %}
 
-                            <p>
+                            <span class="course-department">
 
-                                <strong>Description:</strong>
+                                {{ course.department }}
 
-                                {{ enrollment.course.description }}
-
-                            </p>
+                            </span>
 
                         {% endif %}
 
                     </div>
 
+                </div>
 
 
-                    <!-- ================= ACTIONS ================= -->
+                <!-- STUDY MATERIALS -->
 
-                    <div class="actions">
+                <div class="section">
 
+                    <div class="section-title">
 
-                        <!-- DROP COURSE -->
+                        📚 Study Materials
 
-                        <a
-                            href="{{ url_for(
-                                'drop_course',
-                                course_id=enrollment.course_id
-                            ) }}"
-                            class="drop-btn"
-
-                            onclick="return confirm(
-                                'Are you sure you want to drop this course?'
-                            );"
-                        >
-
-                            Drop Course
-
-                        </a>
+                    </div>
 
 
+                    {% if course.books %}
 
-                        <!-- ================= EXAM STATUS ================= -->
+
+                        {% for book in course.books %}
+
+
+                            <div class="book">
+
+
+                                <div class="book-info">
+
+                                    <div class="book-icon">
+                                        📄
+                                    </div>
+
+
+                                    <div>
+
+                                        <div class="book-name">
+
+                                            {{ book.book_name }}
+
+                                        </div>
+
+
+                                        {% if book.description %}
+
+                                            <div class="book-description">
+
+                                                {{ book.description }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <a
+                                    href="{{ url_for('static', filename=book.file_path) }}"
+                                    target="_blank"
+                                    class="pdf-button"
+                                >
+
+                                    📖 View PDF
+
+                                </a>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+
+                        <div class="no-material">
+
+                            📭 No study materials have been uploaded
+                            for this course yet.
+
+                        </div>
+
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CERTIFICATION EXAM -->
+
+                <div class="section">
+
+                    <div class="section-title">
+
+                        🎓 Certification Exam
+
+                    </div>
+
+
+                    <div class="exam-box">
+
 
                         {% if enrollment.course_id in registered_exam_course_ids %}
 
-                            <span class="exam-registered-btn">
 
-                                ✅ You're Registered for Exam
+                            <!-- ALREADY REGISTERED -->
 
-                            </span>
+                            <div class="exam-info">
+
+                                <div>
+
+                                    <strong>
+                                        Certification Exam
+                                    </strong>
+
+                                    <p>
+                                        You are registered for the
+                                        certification exam.
+                                    </p>
+
+                                </div>
+
+
+                                <span class="exam-status">
+
+                                    ✓ Registered
+
+                                </span>
+
+                            </div>
+
+
+                            <p>
+
+                                Payment Status:
+                                <strong>Paid</strong>
+
+                            </p>
+
 
                         {% else %}
+
+
+                            <!-- NOT REGISTERED -->
+
+                            <div class="exam-info">
+
+                                <div>
+
+                                    <strong>
+                                        Certification Exam
+                                    </strong>
+
+                                    <p>
+                                        Take the certification exam
+                                        for this course.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="exam-fee">
+
+                                    ₹100
+
+                                </div>
+
+                            </div>
+
 
                             <a
                                 href="{{ url_for(
                                     'register_exam',
-                                    course_id=enrollment.course_id
+                                    course_id=course.course_id
                                 ) }}"
-                                class="exam-btn"
+                                class="exam-button"
                             >
 
                                 🎓 Register for Certification Exam
 
                             </a>
 
+
                         {% endif %}
 
 
                     </div>
 
-
                 </div>
 
-            {% endfor %}
 
-        </div>
+                <!-- DROP COURSE -->
+
+                <a
+                    href="{{ url_for(
+                        'drop_course',
+                        course_id=course.course_id
+                    ) }}"
+                    class="drop-button"
+                    onclick="return confirm(
+                        'Are you sure you want to drop this course?'
+                    );"
+                >
+
+                    ✕ Drop Course
+
+                </a>
+
+
+            </div>
+
+
+        {% endfor %}
 
 
     {% else %}
 
 
-        <!-- ================= EMPTY STATE ================= -->
+        <!-- NO COURSES -->
 
-        <div class="empty-card">
+        <div class="empty">
+
+            <div class="empty-icon">
+                🎓
+            </div>
+
 
             <h2>
-
-                📚 No Courses Registered
-
+                You haven't registered for any courses yet
             </h2>
 
+
             <p>
-
-                You haven't registered for any courses yet.
-
+                Browse the available courses and register
+                for a course to start learning.
             </p>
+
 
             <a
                 href="{{ url_for('courses') }}"
-                class="browse-btn"
+                class="button"
             >
 
-                Browse Courses
+                📚 Browse Courses
 
             </a>
 
@@ -607,7 +647,7 @@
 
 
 </div>
-```
+
 
 </body>
 

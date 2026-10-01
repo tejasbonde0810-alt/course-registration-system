@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Course PDF</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 50px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .file-box {
+            border: 2px dashed #93c5fd;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            background: #eff6ff;
+        }
+
+        .file-box input {
+            border: none;
+            background: transparent;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button,
+        .back-button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .back-button:hover {
+            background: #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📚 Upload Course Material</h1>
+
+    <p class="subtitle">
+        Add a PDF book, notes, or study material to a course.
+    </p>
+
+    <form
+        action="{{ url_for('admin_upload_book') }}"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <!-- COURSE -->
+
+        <label for="course_id">
+            Select Course
+        </label>
+
+        <select
+            id="course_id"
+            name="course_id"
+            required
+        >
+
+            <option value="">
+                -- Select a Course --
+            </option>
+
+            {% for course in courses %}
+
+            <option value="{{ course.course_id }}">
+                {{ course.course_name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <!-- BOOK NAME -->
+
+        <label for="book_name">
+            Book / Material Name
+        </label>
+
+        <input
+            type="text"
+            id="book_name"
+            name="book_name"
+            placeholder="Example: Python Programming Notes"
+            required
+        >
+
+
+        <!-- DESCRIPTION -->
+
+        <label for="description">
+            Description
+        </label>
+
+        <textarea
+            id="description"
+            name="description"
+            placeholder="Enter a short description..."
+        ></textarea>
+
+
+        <!-- PDF -->
+
+        <label>
+            Select PDF File
+        </label>
+
+        <div class="file-box">
+
+            <p>📄 Choose your PDF file</p>
+
+            <input
+                type="file"
+                name="file"
+                accept=".pdf,application/pdf"
+                required
+            >
+
+            <p>
+                Only PDF files are allowed.
+            </p>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <button type="submit">
+                📤 Upload PDF
+            </button>
+
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="back-button"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

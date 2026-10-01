@@ -33,3 +33,9 @@ class Student(db.Model):
     year = db.Column(
         db.Integer
     )
+
+    role = db.Column(
+        db.String(20),
+        nullable=False,
+        default="student"
+    )

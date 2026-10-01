@@ -5,364 +5,252 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Available Courses</title>
 
-
     <style>
 
-        /* ================= GLOBAL ================= */
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
 
-
         body {
-            background: #f4f8ff;
-            color: #1e293b;
+            background: #f4f7fb;
+            color: #1f2937;
+            padding: 30px;
         }
-
-
-        /* ================= NAVBAR ================= */
-
-        .navbar {
-
-            height: 70px;
-
-            background: linear-gradient(
-                135deg,
-                #2563eb,
-                #1d4ed8
-            );
-
-            color: white;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 50px;
-
-            box-shadow:
-                0 3px 10px
-                rgba(0, 0, 0, 0.1);
-        }
-
-
-        .logo {
-
-            font-size: 22px;
-
-            font-weight: bold;
-
-        }
-
-
-        .back {
-
-            color: white;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-        }
-
-
-        .back:hover {
-
-            opacity: 0.8;
-
-        }
-
-
-        /* ================= CONTAINER ================= */
 
         .container {
-
             max-width: 1200px;
-
-            margin: 40px auto;
-
-            padding: 0 25px;
-
+            margin: auto;
         }
 
+        /* HEADER */
 
-        h1 {
-
-            color: #172554;
-
-            margin-bottom: 10px;
-
-            font-size: 30px;
-
-        }
-
-
-        .subtitle {
-
-            color: #64748b;
-
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
-
         }
 
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
 
-        /* ================= COURSE GRID ================= */
+        .header p {
+            color: #6b7280;
+        }
 
-        .courses {
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
 
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            background: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .button.secondary {
+            background: #6b7280;
+        }
+
+        .button.secondary:hover {
+            background: #4b5563;
+        }
+
+        /* COURSE GRID */
+
+        .course-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 25px;
-
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(300px, 1fr)
+            );
+            gap: 22px;
         }
 
-
-        /* ================= COURSE CARD ================= */
+        /* COURSE CARD */
 
         .course-card {
-
             background: white;
-
-            padding: 25px;
-
             border-radius: 15px;
-
-            box-shadow:
-                0 5px 20px
-                rgba(0, 0, 0, 0.06);
-
-            border: 1px solid #eef2ff;
-
-            transition: 0.25s;
-
+            padding: 24px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+            transition: 0.2s;
         }
-
 
         .course-card:hover {
-
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(0, 0, 0, 0.10);
-
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.10);
         }
-
-
-        /* ================= ICON ================= */
 
         .course-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
 
-            width: 55px;
+        .course-name {
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #111827;
+        }
 
-            height: 55px;
-
+        .department {
+            display: inline-block;
             background: #dbeafe;
-
-            border-radius: 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 28px;
-
+            color: #1d4ed8;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
             margin-bottom: 18px;
-
         }
 
+        /* DETAILS */
 
-        /* ================= COURSE NAME ================= */
-
-        .course-card h2 {
-
-            color: #172554;
-
-            font-size: 20px;
-
-            margin-bottom: 15px;
-
+        .details {
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+            margin-bottom: 18px;
         }
 
-
-        /* ================= COURSE INFO ================= */
-
-        .course-info {
-
-            color: #64748b;
-
-            margin: 9px 0;
-
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
             font-size: 14px;
-
         }
 
-
-        /* ================= SEAT INFORMATION ================= */
-
-        .seat-info {
-
-            margin-top: 15px;
-
-            padding: 12px;
-
-            background: #f8fafc;
-
-            border-radius: 8px;
-
+        .detail-label {
+            color: #6b7280;
         }
 
-
-        .seat-info p {
-
-            margin: 6px 0;
-
-            font-size: 14px;
-
+        .detail-value {
+            font-weight: bold;
         }
 
+        /* SEAT SECTION */
 
-        .capacity {
-
-            color: #475569;
-
+        .seat-section {
+            margin-bottom: 18px;
         }
 
-
-        .registered {
-
-            color: #475569;
-
+        .seat-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
         }
-
 
         .available {
-
-            color: #166534;
-
+            color: #16a34a;
             font-weight: bold;
-
         }
-
 
         .full {
-
             color: #dc2626;
-
             font-weight: bold;
-
         }
 
+        .progress {
+            width: 100%;
+            height: 7px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-        /* ================= REGISTER BUTTON ================= */
-
-        .register-btn {
-
-            display: inline-block;
-
-            margin-top: 18px;
-
-            padding: 10px 20px;
-
+        .progress-bar {
+            height: 100%;
             background: #2563eb;
+        }
 
-            color: white;
+        /* REGISTER BUTTON */
 
+        .register-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
-
-            border-radius: 7px;
-
-            font-weight: bold;
-
-            font-size: 14px;
-
-            transition: 0.2s;
-
-        }
-
-
-        .register-btn:hover {
-
-            background: #1d4ed8;
-
-        }
-
-
-        /* ================= FULL BUTTON ================= */
-
-        .disabled-btn {
-
-            display: inline-block;
-
-            margin-top: 18px;
-
-            padding: 10px 20px;
-
-            background: #94a3b8;
-
             color: white;
-
-            border-radius: 7px;
-
+            background: #2563eb;
             font-weight: bold;
+        }
 
-            font-size: 14px;
+        .register-button:hover {
+            background: #1d4ed8;
+        }
 
+        .register-button.disabled {
+            background: #9ca3af;
             cursor: not-allowed;
-
         }
 
+        /* EMPTY */
 
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 900px) {
-
-            .courses {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
+        .empty {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
         }
 
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
 
-        @media (max-width: 600px) {
+        .empty h2 {
+            margin-bottom: 8px;
+        }
 
-            .navbar {
+        .empty p {
+            color: #6b7280;
+        }
 
-                padding: 0 20px;
+        /* MOBILE */
 
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
             }
 
-
-            .logo {
-
-                font-size: 18px;
-
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
 
+            .header-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
 
-            .courses {
-
-                grid-template-columns: 1fr;
-
+            .button {
+                text-align: center;
             }
 
         }
@@ -375,180 +263,237 @@
 <body>
 
 
-    <!-- ================= NAVBAR ================= -->
-
-    <div class="navbar">
+<div class="container">
 
 
-        <div class="logo">
+    <!-- HEADER -->
 
-            🎓 Course Registration
+    <div class="header">
+
+        <div>
+
+            <h1>📚 Available Courses</h1>
+
+            <p>
+                Browse and register for available courses
+            </p>
 
         </div>
 
 
-        <a href="{{ url_for('dashboard') }}"
-           class="back">
+        <div class="header-buttons">
 
-            ← Dashboard
+            <a
+                href="{{ url_for('my_courses') }}"
+                class="button"
+            >
+                🎓 My Courses
+            </a>
 
-        </a>
 
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="button secondary"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
 
     </div>
 
 
+    <!-- COURSES -->
 
-    <!-- ================= MAIN CONTENT ================= -->
+    {% if course_data %}
 
-    <div class="container">
-
-
-        <h1>
-
-            Available Courses
-
-        </h1>
-
-
-        <p class="subtitle">
-
-            Browse the courses available for registration.
-
-        </p>
-
-
-
-        <!-- ================= COURSES ================= -->
-
-        <div class="courses">
+        <div class="course-grid">
 
 
             {% for item in course_data %}
 
-
-            <div class="course-card">
-
-
-                <!-- COURSE ICON -->
-
-                <div class="course-icon">
-
-                    📚
-
-                </div>
+                {% set course = item.course %}
+                {% set registered_count = item.registered_count %}
+                {% set available_seats = item.available_seats %}
 
 
-
-                <!-- COURSE NAME -->
-
-                <h2>
-
-                    {{ item.course.course_name }}
-
-                </h2>
+                <div class="course-card">
 
 
+                    <!-- ICON -->
 
-                <!-- DEPARTMENT -->
-
-                <p class="course-info">
-
-                    🏫 Department:
-
-                    {{ item.course.department }}
-
-                </p>
+                    <div class="course-icon">
+                        📘
+                    </div>
 
 
+                    <!-- COURSE NAME -->
 
-                <!-- CREDITS -->
+                    <div class="course-name">
 
-                <p class="course-info">
+                        {{ course.course_name }}
 
-                    ⭐ Credits:
-
-                    {{ item.course.credits }}
-
-                </p>
+                    </div>
 
 
+                    <!-- DEPARTMENT -->
 
-                <!-- ================= SEAT INFORMATION ================= -->
+                    {% if course.department %}
 
-                <div class="seat-info">
+                        <span class="department">
 
+                            {{ course.department }}
 
-                    <p class="capacity">
+                        </span>
 
-                        🎫 Capacity:
-
-                        {{ item.course.capacity }}
-
-                    </p>
+                    {% endif %}
 
 
-                    <p class="registered">
+                    <!-- COURSE INFORMATION -->
 
-                        👥 Registered:
-
-                        {{ item.registered_count }}
-
-                    </p>
+                    <div class="details">
 
 
-                    {% if item.available_seats > 0 %}
+                        <div class="detail">
 
-                        <p class="available">
+                            <span class="detail-label">
+                                Credits
+                            </span>
 
-                            🟢 Available Seats:
+                            <span class="detail-value">
 
-                            {{ item.available_seats }}
+                                {{ course.credits }}
 
-                        </p>
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                Capacity
+                            </span>
+
+                            <span class="detail-value">
+
+                                {{ course.capacity }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-label">
+                                Registered
+                            </span>
+
+                            <span class="detail-value">
+
+                                {{ registered_count }}
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- SEAT AVAILABILITY -->
+
+                    <div class="seat-section">
+
+
+                        <div class="seat-header">
+
+                            <span>
+                                Seat Availability
+                            </span>
+
+
+                            {% if available_seats > 0 %}
+
+                                <span class="available">
+
+                                    {{ available_seats }}
+                                    seats available
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="full">
+
+                                    Course Full
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="progress">
+
+
+                            {% if course.capacity > 0 %}
+
+                                {% set percentage = (
+                                    registered_count
+                                    / course.capacity
+                                    * 100
+                                ) %}
+
+
+                                <div
+                                    class="progress-bar"
+                                    data-width="{{ percentage }}"
+                                ></div>
+
+
+                            {% else %}
+
+                                <div
+                                    class="progress-bar"
+                                    style="width: 100%;"
+                                ></div>
+
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REGISTER -->
+
+                    {% if available_seats > 0 %}
+
+                        <a
+                            href="{{ url_for('register_course', course_id=course.course_id) }}"
+                            class="register-button"
+                        >
+
+                            + Register for Course
+
+                        </a>
 
                     {% else %}
 
-                        <p class="full">
+                        <div class="register-button disabled">
 
-                            🔴 Course Full
+                            Course Full
 
-                        </p>
+                        </div>
 
                     {% endif %}
 
 
                 </div>
-
-
-
-                <!-- ================= REGISTER BUTTON ================= -->
-
-                {% if item.available_seats > 0 %}
-
-
-                    <a href="{{ url_for('register_course', course_id=item.course.course_id) }}"
-                       class="register-btn">
-
-                        Register
-
-                    </a>
-
-
-                {% else %}
-
-
-                    <span class="disabled-btn">
-
-                        Course Full
-
-                    </span>
-
-
-                {% endif %}
-
-
-            </div>
 
 
             {% endfor %}
@@ -557,7 +502,33 @@
         </div>
 
 
-    </div>
+    {% else %}
+
+
+        <!-- NO COURSES -->
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h2>
+                No Courses Available
+            </h2>
+
+            <p>
+                There are currently no courses available
+                for registration.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
 
 
 </body>
