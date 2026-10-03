@@ -239,6 +239,13 @@
         .drop-button:hover {
             background: #dc2626;
         }
+        .external-button {
+            background: #7c3aed;
+        }
+
+        .external-button:hover {
+            background: #6d28d9;
+        }
 
         /* EMPTY */
 
@@ -342,6 +349,12 @@
                 📚 Browse Courses
             </a>
 
+            <a
+                href="{{ url_for('external_courses') }}"
+                class="button external-button"
+            >
+                🌐 External Courses
+            </a>
 
             <a
                 href="{{ url_for('dashboard') }}"
@@ -351,7 +364,6 @@
             </a>
 
         </div>
-
     </div>
 
 

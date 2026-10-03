@@ -87,7 +87,7 @@ from models.course import Course
 from models.book import Book
 from models.enrollment import Enrollment
 from models.certification_exam import CertificationExam
-
+from models.external_course import ExternalCourse
 
 # =========================================================
 # HOME PAGE
@@ -701,6 +701,47 @@ def my_courses():
         registered_exam_course_ids=registered_exam_course_ids
     )
 
+# =========================================================
+# EXTERNAL COURSES
+# =========================================================
+
+@app.route("/external-courses")
+def external_courses():
+
+    if "student_id" not in session:
+        return redirect(url_for("login"))
+
+    selected_category = request.args.get("category")
+
+    query = ExternalCourse.query.filter_by(
+        is_active=True
+    )
+
+    if selected_category:
+        query = query.filter_by(
+            category=selected_category
+        )
+
+    external_courses = query.order_by(
+        ExternalCourse.course_name
+    ).all()
+
+    categories = [
+        "Data Analytics",
+        "AI",
+        "Engineering",
+        "Product Management",
+        "Cyber Security",
+        "Project Management",
+        "Supply Chain & Logistics"
+    ]
+
+    return render_template(
+        "external_courses.html",
+        external_courses=external_courses,
+        categories=categories,
+        selected_category=selected_category
+    )
 # =========================================================
 # CERTIFICATION EXAM REGISTRATION
 # =========================================================
