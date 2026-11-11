@@ -68,6 +68,9 @@ from models.certification_exam import CertificationExam
 from models.external_course import ExternalCourse
 from models.announcement import Announcement
 
+with app.app_context():
+    db.create_all()
+
 
 # =========================================================
 # HELPER FUNCTIONS

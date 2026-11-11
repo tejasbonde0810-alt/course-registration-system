@@ -7,7 +7,8 @@ class Announcement(db.Model):
 
     announcement_id = db.Column(
         db.Integer,
-        primary_key=True
+        primary_key=True,
+        autoincrement=True
     )
 
     title = db.Column(
